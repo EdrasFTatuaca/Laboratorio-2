@@ -23,6 +23,13 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     
+    <!-- AutoMapper for object mapping -->
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    
+    <!-- Dapper for data access -->
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    
     <!-- Entity Framework Core -->
   </ItemGroup>
 
