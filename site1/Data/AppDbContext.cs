@@ -32,6 +32,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         .WithOne(t => t.Product)
         .HasForeignKey(t => t.ProductId);
 
+        modelBuilder.Entity<Item>()
+        .ToTable("Item")
+        .Property(i => i.Price)
+        .HasPrecision(18, 2);
+
         modelBuilder.Entity<Order>()
         .HasMany(t => t.OrderDetails)
         .WithOne(t => t.Order)
@@ -47,6 +52,20 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         .WithOne(t => t.Person)
         .HasForeignKey(t => t.PersonId);
 
+        modelBuilder.Entity<OrderDetail>()
+        .Property(od => od.Price)
+        .HasPrecision(18, 2);
+
+        modelBuilder.Entity<OrderDetail>()
+        .Property(od => od.Total)
+        .HasPrecision(18, 2);
+
+        modelBuilder.Entity<Detail>()
+        .Property(d => d.Price)
+        .HasPrecision(18, 2);
+
+        modelBuilder.Entity<Detail>()
+        .Property(d => d.Total)
+        .HasPrecision(18, 2);
     }
-    
 }

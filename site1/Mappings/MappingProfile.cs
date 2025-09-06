@@ -16,6 +16,39 @@ namespace MessageApi.Mappings
         /// </summary>
         public MappingProfile()
         {
+            // Mapeos para Item
+            CreateMap<Item, ItemReadDto>();
+
+            CreateMap<ItemCreateDto, Item>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.UtcNow))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.CreatedBy))
+                .ForMember(dest => dest.OrderDetails, opt => opt.Ignore());
+
+            // Mapeos para Person
+            CreateMap<Person, PersonReadDto>();
+            CreateMap<PersonCreateDto, Person>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.UtcNow))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.Orders, opt => opt.Ignore());
+
+            // Mapeos para Product
+            CreateMap<Product, ProductReadDto>();
+            CreateMap<ProductCreateDto, Product>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.UtcNow))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.Details, opt => opt.Ignore());
+
+            // Mapeos para Message
+            CreateMap<Message, MessageReadDto>();
+            CreateMap<MessageCreateDto, Message>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.UtcNow))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
+
             // Mapeo de Order a OrderReadDto
             CreateMap<Order, OrderReadDto>()
                 // Se ignora PersonName porque se establecerá manualmente después del mapeo
@@ -36,8 +69,9 @@ namespace MessageApi.Mappings
                 // Se ignoran las propiedades que son generadas por la base de datos
                 .ForMember(dest => dest.Id, opt => opt.Ignore())                // Generado por la base de datos
                 .ForMember(dest => dest.Number, opt => opt.Ignore())            // Generado por el sistema
-                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())         // Establecido por el servicio
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.UtcNow))         // Establecido por el servicio
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())         // Establecido por el servicio
+                .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.CreatedBy))         // Establecido por el servicio
                 .ForMember(dest => dest.Person, opt => opt.Ignore())            // Se carga por separado
                 .ForMember(dest => dest.OrderDetails, opt => opt.Ignore());     // Se mapean por separado
 
@@ -48,7 +82,8 @@ namespace MessageApi.Mappings
                 .ForMember(dest => dest.Id, opt => opt.Ignore())                // Generado por la base de datos
                 .ForMember(dest => dest.OrderId, opt => opt.Ignore())           // Establecido por el servicio
                 .ForMember(dest => dest.Item, opt => opt.Ignore())              // Se carga por separado
-                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())         // Establecido por el servicio
+                .ForMember(dest => dest.Order, opt => opt.Ignore())             // Se carga por separado
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.UtcNow))         // Establecido por el servicio
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())         // Establecido por el servicio
                 .ForMember(dest => dest.Total, opt => opt.Ignore())             // Se calcula automáticamente
                 .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())         // Establecido por el servicio

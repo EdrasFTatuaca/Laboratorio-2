@@ -31,10 +31,14 @@ builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // Servicios
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Configuración de Swagger
 builder.Services.AddSwaggerGen(c =>
