@@ -22,7 +22,7 @@ import swal from 'sweetalert';
     MatDialogContent
   ],
   templateUrl: './person-edit.component.html',
-  styleUrl: './person-edit.component.css'
+  styleUrls: ['./person-edit.component.css']
 })
 export class PersonEditComponent {
 
@@ -43,22 +43,47 @@ export class PersonEditComponent {
   }
 
   onSubmit() {
-    const val = this.personForm.value as Person;
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
-      icon: "warning",
-      dangerMode: true,
-    })
-      .then((willDelete) => {
-        if (willDelete) {
-          if (this.data?.id) {
-            this.personService.update(this.data.id, val).subscribe(() => this.dialogRef.close(true));
-          } else {
-            this.personService.add(val).subscribe(() => this.dialogRef.close(true));
+    if (this.personForm.valid) {
+      const val = this.personForm.value as Person;
+      const action = this.data?.id ? 'actualizar' : 'crear';
+      const message = this.data?.id 
+        ? '¿Estás seguro de que deseas actualizar esta persona?' 
+        : '¿Estás seguro de que deseas crear esta nueva persona?';
+      
+      swal({
+        title: "¿Confirmar acción?",
+        text: message,
+        icon: "info",
+        buttons: ["Cancelar", "Confirmar"],
+        dangerMode: false,
+      })
+        .then((willProceed) => {
+          if (willProceed) {
+            if (this.data?.id) {
+              this.personService.update(this.data.id, val).subscribe({
+                next: () => {
+                  swal("¡Éxito!", "Persona actualizada correctamente", "success");
+                  this.dialogRef.close(true);
+                },
+                error: (error) => {
+                  swal("Error", "No se pudo actualizar la persona", "error");
+                  console.error('Error updating person:', error);
+                }
+              });
+            } else {
+              this.personService.add(val).subscribe({
+                next: () => {
+                  swal("¡Éxito!", "Persona creada correctamente", "success");
+                  this.dialogRef.close(true);
+                },
+                error: (error) => {
+                  swal("Error", "No se pudo crear la persona", "error");
+                  console.error('Error creating person:', error);
+                }
+              });
+            }
           }
-        }
-      });
+        });
+    }
   }
-
 }

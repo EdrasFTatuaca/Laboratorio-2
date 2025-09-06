@@ -6,20 +6,32 @@
   <mat-dialog-content class="row">
     <div class="col-12 mb-3">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>First Name</mat-label>
-        <input matInput formControlName="firstName" />
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="firstName" placeholder="Ingrese el nombre" />
+        <mat-error *ngIf="personForm.get('firstName')?.hasError('required')">
+          El nombre es requerido
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-12 mb-3">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Last Name</mat-label>
-        <input matInput formControlName="lastName" />
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="lastName" placeholder="Ingrese el apellido" />
+        <mat-error *ngIf="personForm.get('lastName')?.hasError('required')">
+          El apellido es requerido
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-12 mb-3">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" />
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput formControlName="email" placeholder="ejemplo@correo.com" />
+        <mat-error *ngIf="personForm.get('email')?.hasError('required')">
+          El correo electrónico es requerido
+        </mat-error>
+        <mat-error *ngIf="personForm.get('email')?.hasError('email')">
+          Ingrese un correo electrónico válido
+        </mat-error>
       </mat-form-field>
     </div>
   </mat-dialog-content>

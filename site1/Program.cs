@@ -92,7 +92,11 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseHttpsRedirection();
+// Solo usar HTTPS redirection en producción
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseRouting();
 app.UseCors("CorsPolicy");
 app.UseAuthorization();
