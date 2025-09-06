@@ -33,7 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   templateUrl: './person.component.html',
-  styleUrl: './person.component.css'
+  styleUrls: ['./person.component.css']
 })
 export class PersonComponent {
 
@@ -52,14 +52,42 @@ export class PersonComponent {
 
   loadPersons() {
     this.PersonService.getAll().subscribe({
-      next: (Response) => {
-        let data = Response;
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+      next: (response: any) => {
+        console.log('Response from API:', response); // Para debug
+        
+        // Asegurar que tenemos un array
+        let data: Person[] = [];
+        
+        if (Array.isArray(response)) {
+          data = response;
+        } else if (response && response.$values && Array.isArray(response.$values)) {
+          // Si viene con wrapper de ReferenceHandler.Preserve
+          data = response.$values;
+        } else if (response && typeof response === 'object') {
+          // Si es un objeto, intentar extraer el array
+          const keys = Object.keys(response);
+          const arrayKey = keys.find(key => Array.isArray(response[key]));
+          if (arrayKey) {
+            data = response[arrayKey];
+          }
+        }
+        
+        console.log('Processed data:', data); // Para debug
+        this.dataSource.data = data;
+        
+        // Configurar paginator y sort después de que los datos estén listos
+        setTimeout(() => {
+          if (this.paginator) {
+            this.dataSource.paginator = this.paginator;
+          }
+          if (this.sort) {
+            this.dataSource.sort = this.sort;
+          }
+        });
       },
       error: (error) => {
-        
+        console.error('Error loading persons:', error);
+        this.dataSource.data = [];
       }
     });
   }

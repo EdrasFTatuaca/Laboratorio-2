@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using AutoMapper;
 using MessageApi.Data;
@@ -13,8 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
