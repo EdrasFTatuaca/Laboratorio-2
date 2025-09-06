@@ -1,0 +1,43 @@
+<div class="container">
+  <h2 mat-dialog-title>{{ isEditMode ? 'Editar Orden' : 'Nueva Orden' }}</h2>
+  
+  <mat-dialog-content>
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Número de Orden</mat-label>
+        <input matInput formControlName="number" placeholder="Ingrese el número de orden">
+        <mat-error *ngIf="orderForm.get('number')?.invalid && orderForm.get('number')?.touched">
+          {{ getErrorMessage('Número') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>ID de Persona</mat-label>
+        <input matInput type="number" formControlName="personId" placeholder="Ingrese el ID de la persona">
+        <mat-error *ngIf="orderForm.get('personId')?.invalid && orderForm.get('personId')?.touched">
+          {{ getErrorMessage('ID de Persona') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Creado Por</mat-label>
+        <input matInput formControlName="createdBy" placeholder="Ingrese quién crea la orden">
+        <mat-error *ngIf="orderForm.get('createdBy')?.invalid && orderForm.get('createdBy')?.touched">
+          {{ getErrorMessage('Creado Por') }}
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button 
+            color="primary" 
+            (click)="onSubmit()"
+            [disabled]="orderForm.invalid">
+      {{ isEditMode ? 'Actualizar' : 'Crear' }}
+    </button>
+  </mat-dialog-actions>
+</div>

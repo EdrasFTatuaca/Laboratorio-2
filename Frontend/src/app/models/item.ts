@@ -1,7 +1,15 @@
 export class Item {
+    id?: number;
+    name: string;
+    price: number;
+    createdBy: number;
+    createdAt?: Date;
+    updatedBy?: number;
+    updatedAt?: Date;
 
-    public id: number = 0;
-    public name: string = '';
-    public description: string = '';
-    
+    constructor() {
+        this.name = '';
+        this.price = 0;
+        this.createdBy = 1; // Default user ID
+    }
 }

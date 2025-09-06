@@ -1,0 +1,82 @@
+.container {
+  padding: 0;
+  max-width: 100%;
+}
+
+h2[mat-dialog-title] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px 24px;
+  margin: -24px -24px 20px -24px;
+  font-weight: 300;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.mat-mdc-dialog-content {
+  padding: 0 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  border-radius: 8px;
+}
+
+.mat-mdc-form-field-error {
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.mat-mdc-dialog-actions {
+  padding: 16px 24px;
+  border-top: 1px solid #e0e0e0;
+  margin: 20px -24px -24px -24px;
+  background: #fafafa;
+}
+
+.mat-mdc-dialog-actions button {
+  margin-left: 8px;
+  min-width: 100px;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background: linear-gradient(45deg, #667eea, #764ba2) !important;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 24px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mat-mdc-button {
+  border-radius: 25px;
+  padding: 8px 24px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  h2[mat-dialog-title] {
+    font-size: 1.2rem;
+    padding: 16px;
+  }
+  
+  .mat-mdc-dialog-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .mat-mdc-dialog-actions button {
+    margin: 0;
+    width: 100%;
+  }
+}
